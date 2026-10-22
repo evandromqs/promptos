@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Política de Privacidade — PromptOS</title>
+  <link rel="icon" type="image/png" href="./assets/icon-128.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #071220;
+      --bg-card: #0d1e34;
+      --primary: #326d9d;
+      --accent: #38bdf8;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-light: rgba(90, 169, 230, 0.25);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      line-height: 1.7;
+      padding-bottom: 60px;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+    
+    header {
+      padding: 30px 0;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 50px;
+    }
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      color: #fff;
+    }
+    .brand img { width: 34px; height: 34px; border-radius: 8px; }
+    .back-btn {
+      font-size: 14px;
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .back-btn:hover { color: #fff; text-decoration: none; }
+
+    .content-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 44px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    h1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 34px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .update-date {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-bottom: 32px;
+    }
+    .alert-box {
+      background: rgba(50, 109, 157, 0.15);
+      border-left: 4px solid var(--accent);
+      padding: 16px 20px;
+      border-radius: 0 12px 12px 0;
+      margin-bottom: 36px;
+      font-size: 15px;
+      color: #e2e8f0;
+    }
+    h2 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 20px;
+      color: #fff;
+      margin: 32px 0 14px 0;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    p { margin-bottom: 16px; color: #cbd5e1; font-size: 15px; }
+    ul { margin: 0 0 20px 24px; color: #cbd5e1; font-size: 15px; }
+    li { margin-bottom: 8px; }
+    code {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: var(--accent);
+      font-size: 14px;
+    }
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 13px;
+      color: #64748b;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a href="./" class="brand">
+        <img src="./assets/icon-128.png" alt="PromptOS">
+        <span>Prompt<span style="color: #5aa9e6;">OS</span></span>
+      </a>
+      <a href="./" class="back-btn">← Voltar para o início</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="content-box">
+      <h1>Política de Privacidade</h1>
+      <div class="update-date">Última atualização: 22 de outubro de 2026</div>
+
+      <div class="alert-box">
+        <strong>Compromisso de Privacidade Absoluta:</strong> O PromptOS foi desenvolvido para funcionar 100% no seu navegador. Nós não rastreamos, não coletamos e não armazenamos nenhuma informação pessoal ou conteúdo dos seus prompts em servidores externos.
+      </div>
+
+      <h2>1. Coleta e Armazenamento de Dados</h2>
+      <p>Todos os seus dados criados na extensão — incluindo títulos de prompts, categorias, modelos com variáveis, histórico de uso, marcações de favoritos e fluxos de trabalho (workflows) — são gravados exclusivamente no seu dispositivo, utilizando a API nativa <code>chrome.storage.local</code>.</p>
+      <p>Em nenhum momento esses dados são enviados para bancos de dados na nuvem, servidores de terceiros ou serviços de telemetria.</p>
+
+      <h2>2. Permissões Solicitadas no Chrome (Manifest V3)</h2>
+      <p>Para fornecer suas funcionalidades essenciais, o PromptOS requer as seguintes permissões declaradas em seu <code>manifest.json</code>:</p>
+      <ul>
+        <li><code>storage</code>: Utilizada unicamente para salvar localmente no seu navegador a sua biblioteca de prompts, templates de variáveis, fluxos de trabalho e preferências visuais (tema claro/escuro).</li>
+        <li><code>scripting</code> e Host Permissions (<code>https://chatgpt.com/*</code> e <code>https://chat.openai.com/*</code>): Utilizadas para permitir a exibição do painel retrátil integrado e transferir o texto do prompt selecionado para a caixa de mensagem do ChatGPT quando você clica em <em>"Inserir no ChatGPT"</em>. A extensão <strong>não lê</strong> o histórico de conversas do seu chat e <strong>não envia</strong> mensagens de forma autônoma.</li>
+      </ul>
+
+      <h2>3. Compartilhamento com Terceiros</h2>
+      <p>O PromptOS não vende, não aluga, não compartilha e não monetiza nenhum tipo de dado do usuário. Não utilizamos redes de anúncios, rastreadores analíticos ou ferramentas de fingerprinting.</p>
+
+      <h2>4. Backup, Portabilidade e Exclusão</h2>
+      <p>Você é o único proprietário de todos os prompts e fluxos cadastrados. A qualquer momento, você pode:</p>
+      <ul>
+        <li><strong>Exportar Backup:</strong> Gerar um arquivo <code>.json</code> completo contendo todos os seus prompts e configurações com um único clique na tela de configurações.</li>
+        <li><strong>Restaurar Backup:</strong> Carregar um arquivo de backup previamente salvo para restabelecer seus prompts em qualquer instalação.</li>
+        <li><strong>Exclusão Total:</strong> Ao desinstalar a extensão pelo menu do Google Chrome, todos os dados locais são imediatamente e permanentemente removidos pelo próprio navegador.</li>
+      </ul>
+
+      <h2>5. Conformidade com a Chrome Web Store</h2>
+      <p>O PromptOS cumpre integralmente a Política do Programa de Desenvolvedores da Chrome Web Store, em especial os requisitos de finalidade única (Single Purpose) e uso mínimo de dados.</p>
+
+      <h2>6. Contato e Dúvidas</h2>
+      <p>Se você tiver dúvidas sobre esta política de privacidade ou sobre a segurança dos seus dados, entre em contato através da nossa página de suporte no GitHub:</p>
+      <p><a href="https://github.com/EvandroMarquesPF/promptos/issues" target="_blank">https://github.com/EvandroMarquesPF/promptos/issues</a></p>
+    </div>
+
+    <footer>
+      © 2026 PromptOS. Todos os direitos reservados.
+    </footer>
+  </main>
+</body>
+</html>

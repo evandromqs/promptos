@@ -1,0 +1,5 @@
+{
+  "extensionName": { "message": "PromptOS" },
+  "extensionDescription": { "message": "Organize, preencha e reutilize seus prompts com rapidez." },
+  "actionTitle": { "message": "Abrir PromptOS ao lado da página" }
+}

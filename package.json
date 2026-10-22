@@ -1,0 +1,11 @@
+{
+  "name": "promptos",
+  "private": true,
+  "version": "0.5.0",
+  "workspaces": ["apps/*", "packages/*"],
+  "scripts": {
+    "dev": "npm run dev -w @promptos/extension -- --host 127.0.0.1 --port 5174 --strictPort",
+    "build": "npm run build -w @promptos/extension",
+    "typecheck": "npm run typecheck -w @promptos/extension"
+  }
+}
