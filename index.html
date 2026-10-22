@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PromptOS — Seus prompts organizados. Seus fluxos prontos para usar.</title>
+  <meta name="description" content="Extensão para Google Chrome que organiza, preenche com variáveis dinâmicas e reutiliza prompts diretamente no ChatGPT com 1 clique.">
+  <link rel="icon" type="image/png" href="./assets/icon-128.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #071220;
+      --bg-card: #0d1e34;
+      --bg-card-hover: #122846;
+      --primary: #326d9d;
+      --primary-light: #5aa9e6;
+      --accent: #38bdf8;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-light: rgba(90, 169, 230, 0.25);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Navbar */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(7, 18, 32, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 76px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+    }
+    .brand img {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+    }
+    .brand-os {
+      color: var(--primary-light);
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      font-weight: 500;
+      font-size: 15px;
+    }
+    .nav-links a:hover {
+      color: var(--accent);
+      transition: color 0.2s;
+    }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 15px;
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #326d9d 0%, #1a4d75 100%);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 8px 24px rgba(50, 109, 157, 0.35);
+    }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #3a7eb5 0%, #1e5886 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(50, 109, 157, 0.5);
+    }
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      color: #e2e8f0;
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      padding: 90px 0 60px;
+      text-align: center;
+    }
+    .hero-glow {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: #326d9d;
+      filter: blur(180px);
+      opacity: 0.22;
+      border-radius: 50%;
+      top: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      background: rgba(50, 109, 157, 0.2);
+      border: 1px solid var(--border-light);
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 24px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .hero-badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 10px var(--accent);
+    }
+    .hero h1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(38px, 6vw, 64px);
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 24px;
+      background: linear-gradient(135deg, #ffffff 40%, #bad8ef 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.02em;
+    }
+    .hero p {
+      font-size: clamp(17px, 2.5vw, 20px);
+      color: var(--text-muted);
+      max-width: 740px;
+      margin: 0 auto 36px;
+      line-height: 1.6;
+    }
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 60px;
+    }
+    .hero-preview {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 30px 100px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.12);
+      max-width: 1040px;
+      margin: 0 auto;
+    }
+    .hero-preview img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Badges row */
+    .highlights-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      margin: 70px 0;
+    }
+    .highlight-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 24px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transition: all 0.25s ease;
+    }
+    .highlight-card:hover {
+      border-color: var(--border-light);
+      background: var(--bg-card-hover);
+      transform: translateY(-2px);
+    }
+    .highlight-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(50, 109, 157, 0.25);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+    .highlight-text h4 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: #fff;
+    }
+    .highlight-text p {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    /* Features Grid */
+    .section-title {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    .section-title span {
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .section-title h2 {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 800;
+      margin-top: 8px;
+      color: #fff;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 28px;
+      margin-bottom: 90px;
+    }
+    .feature-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    .feature-box:hover {
+      border-color: var(--border-light);
+      background: var(--bg-card-hover);
+      transform: translateY(-4px);
+    }
+    .feature-box .f-icon {
+      font-size: 32px;
+      margin-bottom: 20px;
+      display: inline-block;
+    }
+    .feature-box h3 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+    .feature-box p {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Showcase Carousel / Gallery */
+    .gallery-section {
+      padding: 60px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: rgba(13, 30, 52, 0.4);
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+      gap: 32px;
+      margin-top: 40px;
+    }
+    .gallery-item {
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+      background: #000;
+      transition: transform 0.3s;
+    }
+    .gallery-item:hover {
+      transform: scale(1.02);
+      border-color: var(--border-light);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      padding: 100px 0;
+      text-align: center;
+      position: relative;
+    }
+    .cta-box {
+      background: radial-gradient(circle at 50% 50%, #1e4570 0%, #0d1e34 70%);
+      border: 1px solid var(--border-light);
+      border-radius: 28px;
+      padding: 60px 32px;
+      max-width: 900px;
+      margin: 0 auto;
+      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6);
+    }
+    .cta-box h2 {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 800;
+      margin-bottom: 16px;
+      color: #fff;
+    }
+    .cta-box p {
+      font-size: 18px;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 36px;
+    }
+
+    /* Footer */
+    footer {
+      background: #050d17;
+      border-top: 1px solid var(--border);
+      padding: 60px 0 30px;
+    }
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+    .footer-brand {
+      max-width: 360px;
+    }
+    .footer-brand p {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-top: 14px;
+    }
+    .footer-links-group {
+      display: flex;
+      gap: 60px;
+      flex-wrap: wrap;
+    }
+    .footer-col h5 {
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .footer-col ul {
+      list-style: none;
+    }
+    .footer-col li {
+      margin-bottom: 10px;
+    }
+    .footer-col a {
+      color: var(--text-muted);
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+    .footer-col a:hover {
+      color: var(--accent);
+    }
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      color: #64748b;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .gallery-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="container nav">
+      <a href="./" class="brand">
+        <img src="./assets/icon-128.png" alt="PromptOS Logo">
+        <span>Prompt<span class="brand-os">OS</span></span>
+      </a>
+      <nav class="nav-links">
+        <a href="#recursos">Recursos</a>
+        <a href="#como-funciona">Como Funciona</a>
+        <a href="#telas">Capturas de Tela</a>
+        <a href="./privacy.html">Privacidade</a>
+        <a href="./terms.html">Termos</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="https://github.com/EvandroMarquesPF/promptos" target="_blank" class="btn btn-secondary">
+          GitHub
+        </a>
+        <a href="#instalar" class="btn btn-primary">
+          Instalar no Chrome
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="container">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span> Extensão para Google Chrome
+      </div>
+      <h1>Seus prompts organizados.<br>Seus fluxos prontos para usar.</h1>
+      <p>Transforme tarefas repetitivas em processos reutilizáveis diretamente na interface do ChatGPT. Salve, preencha variáveis dinâmicas e insira seus comandos com um clique.</p>
+      
+      <div class="hero-actions">
+        <a href="https://github.com/EvandroMarquesPF/promptos/releases/latest" class="btn btn-primary" style="font-size: 16px; padding: 14px 32px;">
+          Adicionar ao Chrome (Grátis)
+        </a>
+        <a href="https://github.com/EvandroMarquesPF/promptos" target="_blank" class="btn btn-secondary" style="font-size: 16px; padding: 14px 28px;">
+          Código no GitHub
+        </a>
+      </div>
+
+      <div class="hero-preview">
+        <img src="./assets/screenshot-1-biblioteca.png" alt="Interface do PromptOS">
+      </div>
+    </div>
+  </section>
+
+  <!-- Highlights -->
+  <div class="container">
+    <div class="highlights-row">
+      <div class="highlight-card">
+        <div class="highlight-icon">⚡</div>
+        <div class="highlight-text">
+          <h4>1-Clique no ChatGPT</h4>
+          <p>Transfere direto para o composer sem copiar e colar manual.</p>
+        </div>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon">🏷️</div>
+        <div class="highlight-text">
+          <h4>Variáveis Dinâmicas</h4>
+          <p>Preencha {tags} sob demanda em formulários automáticos.</p>
+        </div>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon">🔄</div>
+        <div class="highlight-text">
+          <h4>Workflows Sequenciais</h4>
+          <p>Encadeie prompts em etapas organizadas para rotinas complexas.</p>
+        </div>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon">🔒</div>
+        <div class="highlight-text">
+          <h4>100% Local & Privado</h4>
+          <p>Seus dados nunca saem da sua máquina. Sem servidores remotos.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Features Grid -->
+  <section id="recursos" class="container" style="padding: 40px 0;">
+    <div class="section-title">
+      <span>PRODUTIVIDADE COM IA</span>
+      <h2>Tudo o que você precisa para dominar seus prompts</h2>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-box">
+        <div class="f-icon">📚</div>
+        <h3>Biblioteca Inteligente</h3>
+        <p>Crie, edite, classifique em categorias e favorite os seus melhores prompts. A busca em tempo real encontra qualquer instrução em milissegundos.</p>
+      </div>
+
+      <div class="feature-box">
+        <div class="f-icon">🧩</div>
+        <h3>Templates com Variáveis {nome}</h3>
+        <p>Defina marcadores como {produto}, {público} ou {tom}. O PromptOS cria campos intuitivos para preencher apenas o que muda.</p>
+      </div>
+
+      <div class="feature-box">
+        <div class="f-icon">⛓️</div>
+        <h3>Fluxos de Trabalho (Workflows)</h3>
+        <p>Projetos exigem várias etapas: Pesquisa → Estruturação → Redação → Revisão. Crie fluxos ordenados e avance fase por fase.</p>
+      </div>
+
+      <div class="feature-box">
+        <div class="f-icon">🖱️</div>
+        <h3>Inserção Segura no ChatGPT</h3>
+        <p>Transfere o prompt montado diretamente para o campo de texto. Você sempre mantém o controle para revisar antes de enviar.</p>
+      </div>
+
+      <div class="feature-box">
+        <div class="f-icon">💾</div>
+        <h3>Backup Local em JSON</h3>
+        <p>Exporte e importe sua biblioteca inteira quando quiser. Seus dados continuam com você mesmo se trocar de computador.</p>
+      </div>
+
+      <div class="feature-box">
+        <div class="f-icon">🌗</div>
+        <h3>Modo Claro e Modo Escuro</h3>
+        <p>Visual projetado com estética moderna em azul marinho e suporte nativo aos temas claro e escuro para não cansar sua visão.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Showcase Gallery -->
+  <section id="telas" class="gallery-section">
+    <div class="container">
+      <div class="section-title">
+        <span>CONHEÇA POR DENTRO</span>
+        <h2>Criado para quem usa IA todo santo dia</h2>
+      </div>
+
+      <div class="gallery-grid">
+        <div class="gallery-item">
+          <img src="./assets/screenshot-2-variaveis.png" alt="Formulário de Variáveis">
+        </div>
+        <div class="gallery-item">
+          <img src="./assets/screenshot-3-workflows.png" alt="Fluxos de Trabalho">
+        </div>
+        <div class="gallery-item">
+          <img src="./assets/screenshot-4-chatgpt.png" alt="Integração ChatGPT">
+        </div>
+        <div class="gallery-item">
+          <img src="./assets/screenshot-5-privacidade-temas.png" alt="Tema Escuro e Backup">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Box -->
+  <section id="instalar" class="cta-section">
+    <div class="container">
+      <div class="cta-box">
+        <h2>Pronto para acelerar suas rotinas com IA?</h2>
+        <p>Instale o PromptOS gratuitamente agora mesmo e tenha sua biblioteca de prompts sempre à mão.</p>
+        <a href="https://github.com/EvandroMarquesPF/promptos/releases/latest" class="btn btn-primary" style="font-size: 16px; padding: 15px 36px;">
+          Instalar Extensão no Chrome
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <div class="brand">
+            <img src="./assets/icon-128.png" alt="PromptOS">
+            <span>Prompt<span class="brand-os">OS</span></span>
+          </div>
+          <p>A extensão para Chrome que organiza seus prompts e acelera seus fluxos de trabalho no ChatGPT com máxima privacidade.</p>
+        </div>
+        <div class="footer-links-group">
+          <div class="footer-col">
+            <h5>Produto</h5>
+            <ul>
+              <li><a href="#recursos">Recursos</a></li>
+              <li><a href="#telas">Capturas de Tela</a></li>
+              <li><a href="https://github.com/EvandroMarquesPF/promptos/releases/latest">Download</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h5>Legal & Privacidade</h5>
+            <ul>
+              <li><a href="./privacy.html">Política de Privacidade</a></li>
+              <li><a href="./terms.html">Termos de Uso</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h5>Comunidade</h5>
+            <ul>
+              <li><a href="https://github.com/EvandroMarquesPF/promptos" target="_blank">Repositório GitHub</a></li>
+              <li><a href="https://github.com/EvandroMarquesPF/promptos/issues" target="_blank">Suporte & Sugestões</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 PromptOS. Todos os direitos reservados.</div>
+        <div>PromptOS é uma extensão independente e não é afiliada à OpenAI ou ao ChatGPT.</div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
