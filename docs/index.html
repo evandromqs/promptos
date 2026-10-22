@@ -6,9 +6,6 @@
   <title>PromptOS — Seus prompts organizados. Seus fluxos prontos para usar.</title>
   <meta name="description" content="Extensão para Google Chrome que organiza, preenche com variáveis dinâmicas e reutiliza prompts diretamente no ChatGPT com 1 clique.">
   <link rel="icon" type="image/png" href="./assets/icon-128.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg-dark: #071220;
@@ -24,7 +21,7 @@
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Segoe UI', Arial, sans-serif;
       background-color: var(--bg-dark);
       color: var(--text-main);
       line-height: 1.6;
@@ -58,7 +55,7 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Segoe UI', Arial, sans-serif;
       font-size: 22px;
       font-weight: 800;
     }
@@ -162,7 +159,7 @@
       box-shadow: 0 0 10px var(--accent);
     }
     .hero h1 {
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Segoe UI', Arial, sans-serif;
       font-size: clamp(38px, 6vw, 64px);
       font-weight: 900;
       line-height: 1.15;
@@ -259,7 +256,7 @@
       letter-spacing: 0.08em;
     }
     .section-title h2 {
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Segoe UI', Arial, sans-serif;
       font-size: clamp(28px, 4vw, 42px);
       font-weight: 800;
       margin-top: 8px;
@@ -291,7 +288,7 @@
       display: inline-block;
     }
     .feature-box h3 {
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Segoe UI', Arial, sans-serif;
       font-size: 20px;
       font-weight: 700;
       color: #fff;
@@ -350,7 +347,7 @@
       box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6);
     }
     .cta-box h2 {
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Segoe UI', Arial, sans-serif;
       font-size: clamp(28px, 4vw, 42px);
       font-weight: 800;
       margin-bottom: 16px;
@@ -424,6 +421,12 @@
     @media (max-width: 768px) {
       .nav-links { display: none; }
       .gallery-grid { grid-template-columns: 1fr; }
+      .nav { flex-wrap: wrap; gap: 12px; padding-top: 12px; padding-bottom: 12px; }
+      .nav-actions { flex-wrap: wrap; gap: 8px; }
+      .nav-actions .btn { padding: 10px 12px; font-size: 12px; }
+      .hero h1 { font-size: clamp(30px, 7vw, 48px); }
+      .hero-actions .btn { max-width: 100%; white-space: normal; }
+      .footer-links-group { gap: 28px; }
     }
   </style>
 </head>
@@ -444,11 +447,11 @@
         <a href="./terms.html">Termos</a>
       </nav>
       <div class="nav-actions">
-        <a href="https://github.com/EvandroMarquesPF/promptos" target="_blank" class="btn btn-secondary">
+        <a href="https://github.com/evandromqs/promptos" target="_blank" class="btn btn-secondary">
           GitHub
         </a>
         <a href="#instalar" class="btn btn-primary">
-          Instalar no Chrome
+          Como instalar
         </a>
       </div>
     </div>
@@ -465,10 +468,10 @@
       <p>Transforme tarefas repetitivas em processos reutilizáveis diretamente na interface do ChatGPT. Salve, preencha variáveis dinâmicas e insira seus comandos com um clique.</p>
       
       <div class="hero-actions">
-        <a href="https://github.com/EvandroMarquesPF/promptos/releases/latest" class="btn btn-primary" style="font-size: 16px; padding: 14px 32px;">
-          Adicionar ao Chrome (Grátis)
+        <a href="https://github.com/evandromqs/promptos/releases/latest" class="btn btn-primary" style="font-size: 16px; padding: 14px 32px;">
+          Baixar extensão (Grátis)
         </a>
-        <a href="https://github.com/EvandroMarquesPF/promptos" target="_blank" class="btn btn-secondary" style="font-size: 16px; padding: 14px 28px;">
+        <a href="https://github.com/evandromqs/promptos" target="_blank" class="btn btn-secondary" style="font-size: 16px; padding: 14px 28px;">
           Código no GitHub
         </a>
       </div>
@@ -507,13 +510,14 @@
         <div class="highlight-icon">🔒</div>
         <div class="highlight-text">
           <h4>100% Local & Privado</h4>
-          <p>Seus dados nunca saem da sua máquina. Sem servidores remotos.</p>
+          <p>Biblioteca salva no navegador. Você decide o que inserir e enviar no ChatGPT.</p>
         </div>
       </div>
     </div>
   </div>
 
   <!-- Features Grid -->
+  <section id="como-funciona" class="container" style="padding: 48px 24px;"><div class="section-title"><span>COMO FUNCIONA</span><h2>Do template ao prompt em três passos</h2></div><div class="features-grid"><div class="feature-box"><h3>1. Organize</h3><p>Salve seus prompts e encontre-os por categoria, busca ou favoritos.</p></div><div class="feature-box"><h3>2. Personalize</h3><p>Preencha as variáveis do template e revise o texto preparado.</p></div><div class="feature-box"><h3>3. Use no ChatGPT</h3><p>Insira o texto na caixa de mensagem. Revise e envie quando quiser.</p></div></div></section>
   <section id="recursos" class="container" style="padding: 40px 0;">
     <div class="section-title">
       <span>PRODUTIVIDADE COM IA</span>
@@ -589,9 +593,9 @@
     <div class="container">
       <div class="cta-box">
         <h2>Pronto para acelerar suas rotinas com IA?</h2>
-        <p>Instale o PromptOS gratuitamente agora mesmo e tenha sua biblioteca de prompts sempre à mão.</p>
-        <a href="https://github.com/EvandroMarquesPF/promptos/releases/latest" class="btn btn-primary" style="font-size: 16px; padding: 15px 36px;">
-          Instalar Extensão no Chrome
+        <p>A publicação na Chrome Web Store está em preparação. Enquanto isso, baixe o ZIP da versão atual no GitHub, extraia os arquivos e, em chrome://extensions, ative o Modo do desenvolvedor e escolha Carregar sem compactação. Selecione a pasta que contém manifest.json.</p>
+        <a href="https://github.com/evandromqs/promptos/releases/latest" class="btn btn-primary" style="font-size: 16px; padding: 15px 36px;">
+          Baixar versão atual
         </a>
       </div>
     </div>
@@ -614,7 +618,7 @@
             <ul>
               <li><a href="#recursos">Recursos</a></li>
               <li><a href="#telas">Capturas de Tela</a></li>
-              <li><a href="https://github.com/EvandroMarquesPF/promptos/releases/latest">Download</a></li>
+              <li><a href="https://github.com/evandromqs/promptos/releases/latest">Download</a></li>
             </ul>
           </div>
           <div class="footer-col">
@@ -627,14 +631,14 @@
           <div class="footer-col">
             <h5>Comunidade</h5>
             <ul>
-              <li><a href="https://github.com/EvandroMarquesPF/promptos" target="_blank">Repositório GitHub</a></li>
-              <li><a href="https://github.com/EvandroMarquesPF/promptos/issues" target="_blank">Suporte & Sugestões</a></li>
+              <li><a href="https://github.com/evandromqs/promptos" target="_blank">Repositório GitHub</a></li>
+              <li><a href="https://github.com/evandromqs/promptos/issues" target="_blank">Suporte & Sugestões</a></li>
             </ul>
           </div>
         </div>
       </div>
       <div class="footer-bottom">
-        <div>© 2026 PromptOS. Todos os direitos reservados.</div>
+        <div>PromptOS é um projeto independente, sem afiliação ou endosso da OpenAI.<br>© 2026 PromptOS. Todos os direitos reservados.</div>
         <div>PromptOS é uma extensão independente e não é afiliada à OpenAI ou ao ChatGPT.</div>
       </div>
     </div>

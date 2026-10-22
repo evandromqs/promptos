@@ -3,3 +3,7 @@ dist/
 *.tsbuildinfo
 *.log
 promptos-*.zip
+
+.vercel/
+
+.vercel

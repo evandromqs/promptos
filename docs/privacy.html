@@ -5,9 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Política de Privacidade — PromptOS</title>
   <link rel="icon" type="image/png" href="./assets/icon-128.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg-dark: #071220;
@@ -21,7 +18,7 @@
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Segoe UI', Arial, sans-serif;
       background-color: var(--bg-dark);
       color: var(--text-main);
       line-height: 1.7;
@@ -45,7 +42,7 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Segoe UI', Arial, sans-serif;
       font-size: 20px;
       font-weight: 800;
       color: #fff;
@@ -68,7 +65,7 @@
       box-shadow: 0 20px 60px rgba(0,0,0,0.5);
     }
     h1 {
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Segoe UI', Arial, sans-serif;
       font-size: 34px;
       font-weight: 800;
       color: #fff;
@@ -89,7 +86,7 @@
       color: #e2e8f0;
     }
     h2 {
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Segoe UI', Arial, sans-serif;
       font-size: 20px;
       color: #fff;
       margin: 32px 0 14px 0;
@@ -131,12 +128,12 @@
       <div class="update-date">Última atualização: 22 de outubro de 2026</div>
 
       <div class="alert-box">
-        <strong>Compromisso de Privacidade Absoluta:</strong> O PromptOS foi desenvolvido para funcionar 100% no seu navegador. Nós não rastreamos, não coletamos e não armazenamos nenhuma informação pessoal ou conteúdo dos seus prompts em servidores externos.
+        <strong>Privacidade da extensão:</strong> O PromptOS foi desenvolvido para funcionar 100% no seu navegador. Nós não rastreamos, não coletamos e não armazenamos nenhuma informação pessoal ou conteúdo dos seus prompts em servidores externos.
       </div>
 
       <h2>1. Coleta e Armazenamento de Dados</h2>
-      <p>Todos os seus dados criados na extensão — incluindo títulos de prompts, categorias, modelos com variáveis, histórico de uso, marcações de favoritos e fluxos de trabalho (workflows) — são gravados exclusivamente no seu dispositivo, utilizando a API nativa <code>chrome.storage.local</code>.</p>
-      <p>Em nenhum momento esses dados são enviados para bancos de dados na nuvem, servidores de terceiros ou serviços de telemetria.</p>
+      <p>Todos os seus dados criados na extensão — incluindo títulos de prompts, categorias, modelos com variáveis, contadores locais de uso, imagens de referência, marcações de favoritos e fluxos de trabalho (workflows) — são gravados exclusivamente no seu dispositivo, utilizando a API nativa <code>chrome.storage.local</code>.</p>
+      <p>O PromptOS não envia a biblioteca a servidores do desenvolvedor e não utiliza telemetria. Ao selecionar a inserção, o texto preparado é colocado no campo de mensagem do ChatGPT. Se você enviar a mensagem, o conteúdo será tratado pelo ChatGPT conforme as políticas desse serviço.</p>
 
       <h2>2. Permissões Solicitadas no Chrome (Manifest V3)</h2>
       <p>Para fornecer suas funcionalidades essenciais, o PromptOS requer as seguintes permissões declaradas em seu <code>manifest.json</code>:</p>
@@ -151,17 +148,17 @@
       <h2>4. Backup, Portabilidade e Exclusão</h2>
       <p>Você é o único proprietário de todos os prompts e fluxos cadastrados. A qualquer momento, você pode:</p>
       <ul>
-        <li><strong>Exportar Backup:</strong> Gerar um arquivo <code>.json</code> completo contendo todos os seus prompts e configurações com um único clique na tela de configurações.</li>
+        <li><strong>Exportar Backup:</strong> Gerar um arquivo <code>.json</code> completo contendo seus prompts e fluxos de trabalho com um único clique na tela de configurações.</li>
         <li><strong>Restaurar Backup:</strong> Carregar um arquivo de backup previamente salvo para restabelecer seus prompts em qualquer instalação.</li>
-        <li><strong>Exclusão Total:</strong> Ao desinstalar a extensão pelo menu do Google Chrome, todos os dados locais são imediatamente e permanentemente removidos pelo próprio navegador.</li>
+        <li><strong>Exclusão Total:</strong> Ao desinstalar a extensão pelo menu do Google Chrome, o Chrome remove o armazenamento local da extensão. Arquivos de backup exportados permanecem onde você os salvou e devem ser excluídos separadamente. Você também pode excluir prompts e fluxos pela interface.</li>
       </ul>
 
       <h2>5. Conformidade com a Chrome Web Store</h2>
-      <p>O PromptOS cumpre integralmente a Política do Programa de Desenvolvedores da Chrome Web Store, em especial os requisitos de finalidade única (Single Purpose) e uso mínimo de dados.</p>
+      <p>O uso de informações recebidas das APIs do Google pelo PromptOS segue a Política de Dados do Usuário da Chrome Web Store, incluindo os requisitos de Uso Limitado. Os dados são usados apenas para fornecer as funções descritas da extensão.</p>
 
-      <h2>6. Contato e Dúvidas</h2>
+      <h2>6. Este site</h2><p>Este site é hospedado pela Vercel, que pode processar dados técnicos de acesso, como endereço IP e registros de requisições, para fornecer e proteger a hospedagem. O site não inclui analytics, anúncios ou formulários de coleta. Essa hospedagem é separada do armazenamento local da extensão.</p><h2>7. Contato e Dúvidas</h2>
       <p>Se você tiver dúvidas sobre esta política de privacidade ou sobre a segurança dos seus dados, entre em contato através da nossa página de suporte no GitHub:</p>
-      <p><a href="https://github.com/EvandroMarquesPF/promptos/issues" target="_blank">https://github.com/EvandroMarquesPF/promptos/issues</a></p>
+      <p><a href="https://github.com/evandromqs/promptos/issues" target="_blank">https://github.com/evandromqs/promptos/issues</a></p>
     </div>
 
     <footer>

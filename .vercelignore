@@ -1,0 +1,6 @@
+node_modules
+apps
+packages
+store-assets
+*.zip
+*.log

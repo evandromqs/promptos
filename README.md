@@ -4,9 +4,9 @@
 
 Extensão para Google Chrome (Manifest V3) que permite organizar, preencher templates dinâmicos e reutilizar prompts diretamente no ChatGPT com um único clique.
 
-🌐 **Website oficial & GitHub Pages:** [https://evandromarquespf.github.io/promptos/](https://evandromarquespf.github.io/promptos/)  
-🔒 **Política de Privacidade:** [https://evandromarquespf.github.io/promptos/privacy.html](https://evandromarquespf.github.io/promptos/privacy.html)  
-📄 **Termos de Uso:** [https://evandromarquespf.github.io/promptos/terms.html](https://evandromarquespf.github.io/promptos/terms.html)  
+🌐 **Website oficial:** [https://promptos-ten.vercel.app/](https://promptos-ten.vercel.app/)  
+🔒 **Política de Privacidade:** [https://promptos-ten.vercel.app/privacy.html](https://promptos-ten.vercel.app/privacy.html)  
+📄 **Termos de Uso:** [https://promptos-ten.vercel.app/terms.html](https://promptos-ten.vercel.app/terms.html)  
 
 ---
 
@@ -35,7 +35,7 @@ Extensão para Google Chrome (Manifest V3) que permite organizar, preencher temp
 
 1. Clone o repositório e instale as dependências:
    ```sh
-   git clone https://github.com/EvandroMarquesPF/promptos.git
+   git clone https://github.com/evandromqs/promptos.git
    cd promptos
    npm install
    npm run build
@@ -45,3 +45,9 @@ Extensão para Google Chrome (Manifest V3) que permite organizar, preencher temp
 3. Ative o **Modo do desenvolvedor** no canto superior direito.
 4. Clique em **Carregar sem compactação** e selecione a pasta `apps/extension/dist`.
 5. Abra o [ChatGPT](https://chatgpt.com) e clique no ícone da extensão ou no botão flutuante para abrir o painel.
+
+## Publicação do site
+
+A landing page e as páginas legais são servidas da pasta `docs/` pela Vercel. A configuração em `vercel.json` publica somente os arquivos estáticos, sem compilar a extensão. O projeto Vercel `promptos`, no escopo `evandromqs`, está conectado ao repositório GitHub.
+
+Para publicar manualmente pela raiz do projeto: `vercel deploy --prod --scope evandromqs`.
